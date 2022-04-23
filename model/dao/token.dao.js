@@ -46,10 +46,18 @@ async function generateToken(id_utente){
   return random
 }
 
+async function deleteToken(token){
+  const connection = await getConnection();
+  let query='DELETE FROM token WHERE token = ?';
+  const [res] = await connection.query(query, [token]);
+  return res.affectedRows === 1;;
+}
+
 module.exports = {
     persistToken,
     validateToken,
     listToken,
     getTokenByUtente,
-    generateToken
+    generateToken,
+    deleteToken
   }

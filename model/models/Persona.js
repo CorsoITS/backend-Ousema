@@ -1,6 +1,5 @@
 
 const { listPersona, getPersonaById, insertPersona, updatePersona, personaExistById, personaDeleteById } = require('./persona.dao');
-const config= require('config');
 const { logger } = require('../common/logging');
 
 class Persona {

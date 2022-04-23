@@ -102,6 +102,7 @@ class Utente {
       return this.sedeId;
   }
 
+
   async save() {
       if (typeof (this.id) != 'undefined' && this.id != null ) {
           // id e' definito quindi dobbiamo aggiornare il recordo della persona

@@ -1,10 +1,9 @@
 const { getConnection } = require('../../connessione/connessione');
-const { Utente } = require("../models/utente");
 
 async function getUtenteByUsername(username) {
     const connection = await getConnection();
     const [utenti] =await connection.query('SELECT * FROM operatore WHERE username = ?',[username])
-    if (utenti.length >0) return new Utente(utenti[0]);
+    if (utenti.length >0) return utenti[0];
     else return false
 
 
@@ -25,8 +24,15 @@ const listUtente = async (pag) => {
 async function getUtenteById(id) {
     const conn = await getConnection();
     const [utenti] = await conn.query('SELECT * FROM operatore WHERE id = ?', [id]);
-    return new Utente(utenti[0]);
+    return utenti[0];
 }
+
+async function getSedeById(id) {
+  const conn = await getConnection();
+  const [rows] = await conn.query('SELECT sede_id FROM operatore WHERE id = ?', [id]);
+  return rows[0].sede_id;
+}
+
 
 async function insertUtente(name, lastname,username, passwordHash, role) {
     const conn = await getConnection();
@@ -93,5 +99,6 @@ module.exports={
     insertUtente,
     utenteExistById,
     utenteDeleteById,
-    updateCampiUtente
+    updateCampiUtente,
+    getSedeById
 }
